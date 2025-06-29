@@ -1,0 +1,11 @@
+# Task ID: 15
+# Title: Implement Footer Navigation
+# Status: pending
+# Dependencies: 4, 5, 10, 12
+# Priority: medium
+# Description: Create a footer navigation component with tabs for main app sections.
+# Details:
+Design and implement a footer navigation component with tabs for 'Write Diary', 'List', 'Feedback', and 'My Page'. Use Next.js routing to handle navigation between pages. Implement active state styling for the current tab.
+
+# Test Strategy:
+Test navigation functionality between different pages. Verify that the active tab is correctly highlighted.

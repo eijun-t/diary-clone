@@ -1,0 +1,11 @@
+# Task ID: 6
+# Title: Add Diary Entry Search Functionality
+# Status: pending
+# Dependencies: 5
+# Priority: medium
+# Description: Implement a search feature to find diary entries by keywords.
+# Details:
+Create a search input component. Implement full-text search using Supabase's text search capabilities. Display search results in the list view. Use debounce technique to optimize search performance.
+
+# Test Strategy:
+Test search functionality with various keywords. Verify that search results are accurate and performant.

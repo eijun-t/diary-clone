@@ -1,0 +1,11 @@
+# Task ID: 12
+# Title: Create User Profile and Settings Page
+# Status: pending
+# Dependencies: 3
+# Priority: low
+# Description: Develop a user profile page with settings and preferences.
+# Details:
+Create a profile page component. Implement forms for updating user information and preferences. Add functionality to change password and manage account settings. Use Supabase to store and retrieve user preferences.
+
+# Test Strategy:
+Test profile update functionality. Verify that user preferences are correctly saved and retrieved.

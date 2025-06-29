@@ -1,0 +1,498 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Setup Next.js Project with TypeScript",
+        "description": "Initialize a new Next.js project with TypeScript support and set up the basic project structure.",
+        "details": "Use create-next-app to set up a new Next.js project with TypeScript. Configure ESLint and Prettier for code quality. Set up a basic folder structure for components, pages, and styles. Install necessary dependencies such as react, react-dom, and next. Use Next.js version 13.4.4 or later to leverage the latest features and optimizations.",
+        "testStrategy": "Verify that the project builds without errors and that the development server runs correctly. Check that TypeScript compilation works as expected.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 2,
+        "title": "Integrate Supabase for Backend and Database",
+        "description": "Set up Supabase as the backend and database solution for the application.",
+        "details": "Install @supabase/supabase-js library (version 2.24.0 or later). Create a Supabase project and set up the necessary tables for users, diary entries, and feedback. Configure environment variables for Supabase URL and API key. Create a utility file for Supabase client initialization.",
+        "testStrategy": "Write unit tests to ensure successful connection to Supabase. Test CRUD operations on the created tables.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Install Supabase Client Library",
+            "description": "Install the @supabase/supabase-js library version 2.24.0 or later to enable interaction with Supabase backend services.",
+            "dependencies": [],
+            "details": "Use npm or yarn to install the Supabase client library in the project environment to facilitate API calls and database operations.",
+            "status": "done",
+            "testStrategy": "Verify installation by importing the library in a test script and initializing a Supabase client instance without errors."
+          },
+          {
+            "id": 2,
+            "title": "Create Supabase Project and Configure Environment",
+            "description": "Set up a new Supabase project and configure environment variables for Supabase URL and API key to securely connect the application to the backend.",
+            "dependencies": [
+              1
+            ],
+            "details": "Create a project in the Supabase dashboard, retrieve the project URL and API key, and store them in environment variables for use in the application.",
+            "status": "done",
+            "testStrategy": "Test connection by initializing the Supabase client with environment variables and performing a simple query to confirm connectivity."
+          },
+          {
+            "id": 3,
+            "title": "Design and Implement Database Schema with Migrations",
+            "description": "Design the database schema for users, diaries, feedbacks, and characters tables and implement them using Supabase migrations.",
+            "dependencies": [
+              2
+            ],
+            "details": "Define tables with specified fields and relationships: Diaries (id, user_id, content, mood, created_at), Feedbacks (id, diary_id, character_id, content, is_favorited, created_at), Characters (id, name, description, icon_url, prompt, created_at). Use Supabase SQL editor or migration tools to create these tables.",
+            "status": "done",
+            "testStrategy": "Verify tables are created with correct columns and constraints by querying the information schema and inserting sample data."
+          },
+          {
+            "id": 4,
+            "title": "Create Supabase Client Initialization Utility",
+            "description": "Develop a utility file to initialize and export the Supabase client instance using the configured environment variables for reuse across the application.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement a module that imports the Supabase client library, reads environment variables, and exports a configured Supabase client instance for database operations.",
+            "status": "done",
+            "testStrategy": "Import the utility in a test script and perform a basic query to ensure the client is properly initialized and functional."
+          },
+          {
+            "id": 5,
+            "title": "Implement Database Interaction Functions",
+            "description": "Develop functions to interact with the Supabase tables for CRUD operations on users, diary entries, feedback, and characters.",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Write functions to create, read, update, and delete records in the Diaries, Feedbacks, and Characters tables, including grouping diary entries per day for feedback generation.",
+            "status": "done",
+            "testStrategy": "Unit test each function by performing operations against a test database and verifying expected results and error handling."
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Implement User Authentication with Supabase Auth",
+        "description": "Set up user authentication using Supabase Auth, including sign up, login, and logout functionality.",
+        "details": "Use Supabase Auth methods for user sign up, login, and logout. Implement protected routes using Next.js middleware. Create React components for sign up and login forms. Use React Context API for managing auth state across the application.",
+        "testStrategy": "Write integration tests for the authentication flow. Test protected routes to ensure they redirect unauthenticated users.",
+        "priority": "high",
+        "dependencies": [
+          2
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Set Up Supabase Project and Configure Auth",
+            "description": "Create a new Supabase project, enable authentication, and obtain the project URL and anon key.",
+            "dependencies": [],
+            "details": "Sign up or log in to Supabase, create a new project, enable authentication in the Supabase dashboard, and note the Project URL and Anon Key for integration.",
+            "status": "done",
+            "testStrategy": "Verify that the Supabase project is accessible and authentication is enabled in the dashboard."
+          },
+          {
+            "id": 2,
+            "title": "Install and Configure Supabase Client in Next.js",
+            "description": "Install Supabase client libraries and set up environment variables in the Next.js project.",
+            "dependencies": [
+              1
+            ],
+            "details": "Install @supabase/supabase-js and @supabase/ssr packages. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to .env.local. Create utility functions for browser and server clients.",
+            "status": "done",
+            "testStrategy": "Check that the Supabase client can connect to the project using the provided keys and environment variables."
+          },
+          {
+            "id": 3,
+            "title": "Implement Sign Up, Login, and Logout Functionality",
+            "description": "Use Supabase Auth methods to implement user sign up, login, and logout logic.",
+            "dependencies": [
+              2
+            ],
+            "details": "Create functions using Supabase Auth API for signing up, logging in, and logging out users. Handle errors and success responses appropriately.",
+            "status": "done",
+            "testStrategy": "Test each function independently to ensure users can register, log in, and log out successfully."
+          },
+          {
+            "id": 4,
+            "title": "Create React Components for Auth Forms",
+            "description": "Develop React components for user sign up and login forms, integrating with Supabase Auth logic.",
+            "dependencies": [
+              3
+            ],
+            "details": "Build and style sign up and login forms. Connect form submissions to the corresponding Supabase Auth functions. Display error and success messages.",
+            "status": "done",
+            "testStrategy": "Render forms in the app and verify that user input triggers the correct authentication actions."
+          },
+          {
+            "id": 5,
+            "title": "Implement Auth State Management with React Context",
+            "description": "Set up React Context API to manage and provide authentication state across the application.",
+            "dependencies": [
+              4
+            ],
+            "details": "Create an AuthContext to store user state and authentication status. Provide context to the app and update state on auth events.",
+            "status": "done",
+            "testStrategy": "Check that authentication state updates correctly on sign up, login, and logout, and is accessible throughout the app."
+          },
+          {
+            "id": 6,
+            "title": "Protect Routes Using Next.js Middleware",
+            "description": "Implement Next.js middleware to restrict access to protected routes based on authentication state.",
+            "dependencies": [
+              5
+            ],
+            "details": "Create middleware that checks for authenticated users before allowing access to protected pages. Redirect unauthenticated users to the login page.",
+            "status": "done",
+            "testStrategy": "Attempt to access protected routes as both authenticated and unauthenticated users to verify correct redirection and access control."
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Create Diary Entry Creation Interface",
+        "description": "Develop a user interface for creating new diary entries.",
+        "details": "Create a React component for the diary entry form. Use react-hook-form (version 7.44.2 or later) for form management and validation. Implement a rich text editor using react-quill (version 2.0.0 or later) for enhanced diary entry formatting. Add functionality to save entries to Supabase.",
+        "testStrategy": "Write unit tests for the diary entry form component. Test form validation and submission process.",
+        "priority": "high",
+        "dependencies": [
+          3
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create Dedicated Diary Entry Page Route",
+            "description": "Set up a new route at '/diary/new' in the React application to serve as the dedicated page for creating new diary entries.",
+            "dependencies": [],
+            "details": "Configure the routing logic (e.g., using React Router) to render the diary entry creation component when users navigate to '/diary/new'. Ensure the page is mobile-first and accessible.",
+            "status": "done",
+            "testStrategy": "Navigate to '/diary/new' and verify that the correct component renders on both desktop and mobile devices."
+          },
+          {
+            "id": 2,
+            "title": "Implement Diary Entry Form UI",
+            "description": "Develop the form UI with a plain textarea for entry content and an emoji-based mood selector.",
+            "dependencies": [
+              1
+            ],
+            "details": "Use react-hook-form (v7.44.2+) for form state management. The form should include a textarea for the diary content and a set of emoji buttons for mood selection. Ensure the UI is mobile-friendly and accessible.",
+            "status": "done",
+            "testStrategy": "Render the form on the page, verify that the textarea and emoji selector are functional and visually accessible on various screen sizes."
+          },
+          {
+            "id": 3,
+            "title": "Add Form Validation",
+            "description": "Implement validation rules for the diary entry form using react-hook-form.",
+            "dependencies": [
+              2
+            ],
+            "details": "Require that the diary content is not empty and that a mood is selected before allowing submission. Display clear error messages for invalid input.",
+            "status": "done",
+            "testStrategy": "Attempt to submit the form with missing or invalid data and verify that appropriate validation errors are shown."
+          },
+          {
+            "id": 4,
+            "title": "Create Supabase Database Insertion Function",
+            "description": "Develop a function to insert new diary entries into Supabase, creating a new record for each submission.",
+            "dependencies": [
+              3
+            ],
+            "details": "Implement a simple insertion function that takes the diary content, selected mood, and timestamp, and saves them as a new entry in the Supabase database. No checks for existing entries are needed.",
+            "status": "done",
+            "testStrategy": "Submit valid form data and verify that a new record appears in the Supabase database each time."
+          },
+          {
+            "id": 5,
+            "title": "Implement Save Functionality and Error Handling",
+            "description": "Connect the form submission to the Supabase insertion function and handle errors gracefully.",
+            "dependencies": [
+              4
+            ],
+            "details": "Trigger the save operation only when the 'Save' button is pressed. Show loading indicators and display user-friendly error messages if the save fails. Reset the form or provide feedback on successful save.",
+            "status": "done",
+            "testStrategy": "Test saving entries under normal and error conditions (e.g., network failure) and verify correct user feedback and error handling."
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Implement Diary Entry Listing and Calendar View",
+        "description": "Create interfaces for listing diary entries and viewing them in a calendar format.",
+        "details": "Develop a list view component for diary entries. Implement a calendar view using react-big-calendar (version 1.6.9 or later). Fetch diary entries from Supabase and populate both views. Implement pagination for the list view and date range selection for the calendar view.",
+        "testStrategy": "Test the rendering of both list and calendar views. Verify correct data fetching and display. Test pagination and date range selection functionality.",
+        "priority": "medium",
+        "dependencies": [
+          4
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design Tabbed Interface for List and Calendar Views",
+            "description": "Extend the existing /diary/page.tsx to support tab switching between the list and calendar views within the same page.",
+            "dependencies": [],
+            "details": "Implement a tabbed UI that allows users to switch between the diary entry list and the calendar view, ensuring seamless transitions and state management.",
+            "status": "pending",
+            "testStrategy": "Verify that both tabs render correctly, switching preserves state, and the correct view is displayed upon tab selection."
+          },
+          {
+            "id": 2,
+            "title": "Implement Diary Entry List View with Pagination",
+            "description": "Develop a list view component that displays diary entries in descending order, showing the first ~20 characters of each entry and paginating 10 entries per page.",
+            "dependencies": [
+              1
+            ],
+            "details": "Fetch diary entries from Supabase, sort them by newest first, and display only the first 20 characters per entry. Add pagination controls to navigate through pages of 10 entries each.",
+            "status": "pending",
+            "testStrategy": "Check that entries are correctly ordered, truncated, and paginated. Test navigation between pages and edge cases (e.g., last page with fewer than 10 entries)."
+          },
+          {
+            "id": 3,
+            "title": "Integrate react-calendar for Monthly Calendar View",
+            "description": "Implement a monthly calendar view using react-calendar, displaying a dot on dates with diary entries and supporting Japanese localization.",
+            "dependencies": [
+              1
+            ],
+            "details": "Configure react-calendar for monthly display, localize to Japanese, and visually indicate dates with diary entries using small dots. Ensure initial view is the current month.",
+            "status": "pending",
+            "testStrategy": "Confirm calendar renders in Japanese, dots appear only on dates with entries, and initial month is correct."
+          },
+          {
+            "id": 4,
+            "title": "Enable Date Selection and Entry Detail Display in Calendar View",
+            "description": "Allow users to click a date in the calendar to view detailed diary entries for that day in a lower section of the calendar view.",
+            "dependencies": [
+              3
+            ],
+            "details": "Implement click handlers for calendar dates. When a date with entries is clicked, fetch and display the full details of those entries below the calendar.",
+            "status": "pending",
+            "testStrategy": "Test clicking dates with and without entries, verify correct details are shown, and ensure UI updates appropriately."
+          },
+          {
+            "id": 5,
+            "title": "Fetch and Synchronize Diary Entries from Supabase for Both Views",
+            "description": "Implement data fetching logic to retrieve diary entries from Supabase and ensure both the list and calendar views are populated and synchronized.",
+            "dependencies": [
+              2,
+              3
+            ],
+            "details": "Centralize data fetching to avoid duplication, handle loading and error states, and ensure updates in one view are reflected in the other.",
+            "status": "pending",
+            "testStrategy": "Simulate data changes and verify both views update accordingly. Test error handling and loading indicators."
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Add Diary Entry Search Functionality",
+        "description": "Implement a search feature to find diary entries by keywords.",
+        "details": "Create a search input component. Implement full-text search using Supabase's text search capabilities. Display search results in the list view. Use debounce technique to optimize search performance.",
+        "testStrategy": "Test search functionality with various keywords. Verify that search results are accurate and performant.",
+        "priority": "medium",
+        "dependencies": [
+          5
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Design and Implement Character System",
+        "description": "Create the system for managing the 8 unique characters and their personalities.",
+        "details": "Design a data structure to represent each character's attributes (name, personality, speech style). Create a Supabase table to store character information. Implement utility functions for character selection and rotation.",
+        "testStrategy": "Unit test character utility functions. Verify that all 8 characters are correctly represented in the system.",
+        "priority": "high",
+        "dependencies": [
+          2
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Integrate OpenAI API for Feedback Generation",
+        "description": "Set up the OpenAI API integration for generating character feedback.",
+        "details": "Install openai npm package (version 3.2.1 or later). Set up environment variables for OpenAI API key. Create a utility function to generate prompts based on diary content and character personality. Implement error handling and retry logic for API calls.",
+        "testStrategy": "Test API integration with mock diary entries. Verify that generated feedback matches character personalities.",
+        "priority": "high",
+        "dependencies": [
+          7
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Implement Feedback Generation Scheduler",
+        "description": "Create a system to automatically generate feedback at 4 AM daily.",
+        "details": "Use node-cron (version 3.0.2 or later) to schedule daily tasks. Implement a serverless function (e.g., using Vercel Serverless Functions) to handle the scheduled task. Fetch relevant diary entries, generate feedback using OpenAI API, and store results in Supabase.",
+        "testStrategy": "Test the scheduler with different time zones. Verify that feedback is generated and stored correctly.",
+        "priority": "medium",
+        "dependencies": [
+          8
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Develop Feedback Display Interface",
+        "description": "Create a user interface to display character feedback to users.",
+        "details": "Design and implement a feedback card component. Create a feedback list view that displays cards for each character. Implement a detailed view for individual feedback entries. Use framer-motion (version 10.12.16 or later) for smooth animations and transitions.",
+        "testStrategy": "Test the rendering of feedback cards and detailed views. Verify that all character information is displayed correctly.",
+        "priority": "medium",
+        "dependencies": [
+          9
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 11,
+        "title": "Implement Context Management for Long-term Dialogue",
+        "description": "Develop a system to manage and summarize long-term context for AI interactions.",
+        "details": "Implement a context management system using a combination of database storage and in-memory caching (e.g., Redis). Create utility functions to summarize past interactions using OpenAI's summarization capabilities. Implement a system to rotate and update context based on relevance and recency.",
+        "testStrategy": "Test context summarization with various interaction histories. Verify that context is correctly maintained and updated over time.",
+        "priority": "medium",
+        "dependencies": [
+          8
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 12,
+        "title": "Create User Profile and Settings Page",
+        "description": "Develop a user profile page with settings and preferences.",
+        "details": "Create a profile page component. Implement forms for updating user information and preferences. Add functionality to change password and manage account settings. Use Supabase to store and retrieve user preferences.",
+        "testStrategy": "Test profile update functionality. Verify that user preferences are correctly saved and retrieved.",
+        "priority": "low",
+        "dependencies": [
+          3
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 13,
+        "title": "Implement Responsive Design and Mobile-First Approach",
+        "description": "Ensure the application is fully responsive and optimized for mobile devices.",
+        "details": "Use CSS modules or styled-components (version 5.3.10 or later) for styling. Implement a mobile-first design approach. Use media queries to adjust layouts for different screen sizes. Test and optimize touch interactions for mobile devices.",
+        "testStrategy": "Test the application on various devices and screen sizes. Use browser developer tools to simulate different devices and verify responsiveness.",
+        "priority": "high",
+        "dependencies": [
+          4,
+          5,
+          10,
+          12
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 14,
+        "title": "Integrate Playwright for Web Scraping",
+        "description": "Set up Playwright to scrape Yahoo! News for current events to incorporate into character feedback.",
+        "details": "Install playwright (version 1.35.1 or later). Create a serverless function to periodically scrape Yahoo! News headlines. Implement parsing logic to extract relevant information from the scraped data. Store scraped data in Supabase for use in feedback generation.",
+        "testStrategy": "Test the scraping function with mock HTML data. Verify that headlines are correctly extracted and stored.",
+        "priority": "low",
+        "dependencies": [
+          8
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 15,
+        "title": "Implement Footer Navigation",
+        "description": "Create a footer navigation component with tabs for main app sections.",
+        "details": "Design and implement a footer navigation component with tabs for 'Write Diary', 'List', 'Feedback', and 'My Page'. Use Next.js routing to handle navigation between pages. Implement active state styling for the current tab.",
+        "testStrategy": "Test navigation functionality between different pages. Verify that the active tab is correctly highlighted.",
+        "priority": "medium",
+        "dependencies": [
+          4,
+          5,
+          10,
+          12
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 16,
+        "title": "Add Data Persistence and Offline Support",
+        "description": "Implement data persistence and offline functionality using service workers and IndexedDB.",
+        "details": "Use next-pwa (version 5.6.0 or later) to add Progressive Web App (PWA) capabilities. Implement service workers for offline caching of assets and API responses. Use idb (version 7.1.1 or later) for client-side storage of diary entries and feedback. Implement sync functionality to update Supabase when online.",
+        "testStrategy": "Test offline functionality by disabling network connection. Verify that the app works offline and syncs data when connection is restored.",
+        "priority": "low",
+        "dependencies": [
+          4,
+          5,
+          10
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 17,
+        "title": "Implement Error Handling and Logging",
+        "description": "Set up comprehensive error handling and logging throughout the application.",
+        "details": "Implement a global error boundary using React Error Boundary. Set up error logging using a service like Sentry (use @sentry/nextjs version 7.54.0 or later). Create custom error pages for different HTTP status codes. Implement user-friendly error messages and recovery options.",
+        "testStrategy": "Simulate various error scenarios and verify that they are handled gracefully. Check that errors are correctly logged and that users are presented with appropriate messages.",
+        "priority": "medium",
+        "dependencies": [
+          1,
+          2,
+          3
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 18,
+        "title": "Perform Security Audit and Optimization",
+        "description": "Conduct a security audit of the application and implement necessary optimizations.",
+        "details": "Use OWASP ZAP or a similar tool to perform a security scan. Implement Content Security Policy (CSP) headers. Ensure all API endpoints are properly secured. Optimize API calls and implement caching where appropriate. Use React.memo and useMemo for performance optimization. Implement lazy loading for images and components.",
+        "testStrategy": "Conduct penetration testing to identify security vulnerabilities. Use Lighthouse or similar tools to measure and improve performance metrics.",
+        "priority": "high",
+        "dependencies": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "status": "pending",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-06-28T06:24:13.044Z",
+      "updated": "2025-06-29T07:09:28.084Z",
+      "description": "Tasks for master context"
+    }
+  }
+}

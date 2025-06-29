@@ -1,0 +1,43 @@
+# Task ID: 2
+# Title: Integrate Supabase for Backend and Database
+# Status: done
+# Dependencies: 1
+# Priority: high
+# Description: Set up Supabase as the backend and database solution for the application.
+# Details:
+Install @supabase/supabase-js library (version 2.24.0 or later). Create a Supabase project and set up the necessary tables for users, diary entries, and feedback. Configure environment variables for Supabase URL and API key. Create a utility file for Supabase client initialization.
+
+# Test Strategy:
+Write unit tests to ensure successful connection to Supabase. Test CRUD operations on the created tables.
+
+# Subtasks:
+## 1. Install Supabase Client Library [done]
+### Dependencies: None
+### Description: Install the @supabase/supabase-js library version 2.24.0 or later to enable interaction with Supabase backend services.
+### Details:
+Use npm or yarn to install the Supabase client library in the project environment to facilitate API calls and database operations.
+
+## 2. Create Supabase Project and Configure Environment [done]
+### Dependencies: 2.1
+### Description: Set up a new Supabase project and configure environment variables for Supabase URL and API key to securely connect the application to the backend.
+### Details:
+Create a project in the Supabase dashboard, retrieve the project URL and API key, and store them in environment variables for use in the application.
+
+## 3. Design and Implement Database Schema with Migrations [done]
+### Dependencies: 2.2
+### Description: Design the database schema for users, diaries, feedbacks, and characters tables and implement them using Supabase migrations.
+### Details:
+Define tables with specified fields and relationships: Diaries (id, user_id, content, mood, created_at), Feedbacks (id, diary_id, character_id, content, is_favorited, created_at), Characters (id, name, description, icon_url, prompt, created_at). Use Supabase SQL editor or migration tools to create these tables.
+
+## 4. Create Supabase Client Initialization Utility [done]
+### Dependencies: 2.2
+### Description: Develop a utility file to initialize and export the Supabase client instance using the configured environment variables for reuse across the application.
+### Details:
+Implement a module that imports the Supabase client library, reads environment variables, and exports a configured Supabase client instance for database operations.
+
+## 5. Implement Database Interaction Functions [done]
+### Dependencies: 2.3, 2.4
+### Description: Develop functions to interact with the Supabase tables for CRUD operations on users, diary entries, feedback, and characters.
+### Details:
+Write functions to create, read, update, and delete records in the Diaries, Feedbacks, and Characters tables, including grouping diary entries per day for feedback generation.
+

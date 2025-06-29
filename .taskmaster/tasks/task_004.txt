@@ -1,0 +1,43 @@
+# Task ID: 4
+# Title: Create Diary Entry Creation Interface
+# Status: done
+# Dependencies: 3
+# Priority: high
+# Description: Develop a user interface for creating new diary entries.
+# Details:
+Create a React component for the diary entry form. Use react-hook-form (version 7.44.2 or later) for form management and validation. Implement a rich text editor using react-quill (version 2.0.0 or later) for enhanced diary entry formatting. Add functionality to save entries to Supabase.
+
+# Test Strategy:
+Write unit tests for the diary entry form component. Test form validation and submission process.
+
+# Subtasks:
+## 1. Create Dedicated Diary Entry Page Route [done]
+### Dependencies: None
+### Description: Set up a new route at '/diary/new' in the React application to serve as the dedicated page for creating new diary entries.
+### Details:
+Configure the routing logic (e.g., using React Router) to render the diary entry creation component when users navigate to '/diary/new'. Ensure the page is mobile-first and accessible.
+
+## 2. Implement Diary Entry Form UI [done]
+### Dependencies: 4.1
+### Description: Develop the form UI with a plain textarea for entry content and an emoji-based mood selector.
+### Details:
+Use react-hook-form (v7.44.2+) for form state management. The form should include a textarea for the diary content and a set of emoji buttons for mood selection. Ensure the UI is mobile-friendly and accessible.
+
+## 3. Add Form Validation [done]
+### Dependencies: 4.2
+### Description: Implement validation rules for the diary entry form using react-hook-form.
+### Details:
+Require that the diary content is not empty and that a mood is selected before allowing submission. Display clear error messages for invalid input.
+
+## 4. Create Supabase Database Insertion Function [done]
+### Dependencies: 4.3
+### Description: Develop a function to insert new diary entries into Supabase, creating a new record for each submission.
+### Details:
+Implement a simple insertion function that takes the diary content, selected mood, and timestamp, and saves them as a new entry in the Supabase database. No checks for existing entries are needed.
+
+## 5. Implement Save Functionality and Error Handling [done]
+### Dependencies: 4.4
+### Description: Connect the form submission to the Supabase insertion function and handle errors gracefully.
+### Details:
+Trigger the save operation only when the 'Save' button is pressed. Show loading indicators and display user-friendly error messages if the save fails. Reset the form or provide feedback on successful save.
+

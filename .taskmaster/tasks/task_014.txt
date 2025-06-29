@@ -1,0 +1,11 @@
+# Task ID: 14
+# Title: Integrate Playwright for Web Scraping
+# Status: pending
+# Dependencies: 8
+# Priority: low
+# Description: Set up Playwright to scrape Yahoo! News for current events to incorporate into character feedback.
+# Details:
+Install playwright (version 1.35.1 or later). Create a serverless function to periodically scrape Yahoo! News headlines. Implement parsing logic to extract relevant information from the scraped data. Store scraped data in Supabase for use in feedback generation.
+
+# Test Strategy:
+Test the scraping function with mock HTML data. Verify that headlines are correctly extracted and stored.

@@ -1,0 +1,11 @@
+# Task ID: 8
+# Title: Integrate OpenAI API for Feedback Generation
+# Status: pending
+# Dependencies: 7
+# Priority: high
+# Description: Set up the OpenAI API integration for generating character feedback.
+# Details:
+Install openai npm package (version 3.2.1 or later). Set up environment variables for OpenAI API key. Create a utility function to generate prompts based on diary content and character personality. Implement error handling and retry logic for API calls.
+
+# Test Strategy:
+Test API integration with mock diary entries. Verify that generated feedback matches character personalities.
