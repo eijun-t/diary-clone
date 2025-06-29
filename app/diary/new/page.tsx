@@ -155,7 +155,13 @@ export default function NewDiaryPage() {
                   <button
                     key={option.value}
                     type="button"
-                    onClick={() => setValue('mood', option.value)}
+                    onClick={() => {
+                      if (selectedMood === option.value) {
+                        setValue('mood', undefined);
+                      } else {
+                        setValue('mood', option.value);
+                      }
+                    }}
                     className={`relative w-16 h-16 rounded-2xl border-2 transition-all duration-200 hover:scale-105 active:scale-95 flex items-center justify-center text-2xl shadow-sm hover:shadow-md ${
                       selectedMood === option.value
                         ? 'border-primary bg-primary/10 shadow-lg ring-2 ring-primary/30 scale-105'
@@ -191,17 +197,6 @@ export default function NewDiaryPage() {
                 {...register('mood')}
               />
               
-              {selectedMood && (
-                <div className="text-center mt-4">
-                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full text-sm">
-                    <span className="text-lg">{moodOptions.find(m => m.value === selectedMood)?.emoji}</span>
-                    <span className="font-medium text-primary">
-                      {moodOptions.find(m => m.value === selectedMood)?.label}
-                    </span>
-                    <span className="text-muted-foreground">を選択中</span>
-                  </div>
-                </div>
-              )}
             </CardContent>
           </Card>
 

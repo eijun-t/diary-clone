@@ -1,6 +1,6 @@
 # Task ID: 6
 # Title: Add Diary Entry Search Functionality
-# Status: pending
+# Status: done
 # Dependencies: 5
 # Priority: medium
 # Description: Implement a search feature to find diary entries by keywords.
@@ -9,3 +9,35 @@ Create a search input component. Implement full-text search using Supabase's tex
 
 # Test Strategy:
 Test search functionality with various keywords. Verify that search results are accurate and performant.
+
+# Subtasks:
+## 1. Design and Implement Search Input Component [done]
+### Dependencies: None
+### Description: Create a search bar UI component to be displayed only in the list view, positioned between the tab switch button and the diary entry list.
+### Details:
+Ensure the search bar is visible only in the list view and includes a search button and a clear (×) button. The search should be triggered by pressing the search button, not in real-time.
+
+## 2. Integrate Supabase Full-Text Search for Diary Body [done]
+### Dependencies: 6.1
+### Description: Implement backend and frontend logic to perform full-text search on diary entry bodies using Supabase's full-text search capabilities.
+### Details:
+Configure the Supabase database to support full-text search on the diary body field. Use appropriate SQL functions (e.g., to_tsvector, to_tsquery) and ensure only the diary body is searched.
+
+## 3. Display and Highlight Search Results in List View [done]
+### Dependencies: 6.2
+### Description: Replace the diary list with search results and highlight matching keywords in bold within the preview snippet.
+### Details:
+When a search is performed, update the list view to show only matching entries. In each result, bold the matched keyword(s) in the preview and ensure the preview includes the relevant context.
+
+## 4. Implement Search History Functionality [done]
+### Dependencies: 6.1
+### Description: Store past search keywords and allow users to reuse them from a history list.
+### Details:
+Save each search keyword to local storage or a suitable backend table. Provide a UI for users to view and select from previous searches.
+
+## 5. Optimize Search with Debounce and Clear Functionality [done]
+### Dependencies: 6.1, 6.2, 6.3
+### Description: Apply debounce to the search input to prevent unnecessary queries and implement logic to clear the search and restore the default list view.
+### Details:
+Ensure debounce is applied to the search input to optimize performance. The clear (×) button should reset the search input and display the full diary list.
+

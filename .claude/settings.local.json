@@ -6,7 +6,8 @@
       "Bash(npm run dev:*)",
       "Bash(pkill:*)",
       "Bash(mkdir:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(psql $DATABASE_URL -c \"SELECT id, content, content_search FROM diaries WHERE content ILIKE '%テスト%' LIMIT 5;\")"
     ],
     "deny": []
   }
