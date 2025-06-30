@@ -143,4 +143,91 @@
   .mood-button-selected {
     @apply ring-4 ring-white/50 shadow-lg scale-110;
   }
+
+  /* React Calendar Styles */
+  .react-calendar {
+    background: transparent !important;
+    border: none !important;
+    font-family: inherit !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .react-calendar__navigation {
+    height: 44px !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .react-calendar__navigation button {
+    color: hsl(var(--foreground)) !important;
+    background: transparent !important;
+    border: none !important;
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+  }
+
+  .react-calendar__navigation button:hover {
+    background: hsl(var(--muted)) !important;
+    border-radius: 0.5rem !important;
+  }
+
+  .react-calendar__tile {
+    background: transparent !important;
+    border: none !important;
+    color: hsl(var(--foreground)) !important;
+    padding: 0.75rem !important;
+    position: relative !important;
+    border-radius: 0.5rem !important;
+    transition: all 0.2s !important;
+  }
+
+  .react-calendar__tile:hover {
+    background: hsl(var(--muted)) !important;
+  }
+
+  .react-calendar__tile--active {
+    background: hsl(var(--primary)) !important;
+    color: hsl(var(--primary-foreground)) !important;
+  }
+
+  .react-calendar__tile--now {
+    background: hsl(var(--secondary)) !important;
+    color: hsl(var(--secondary-foreground)) !important;
+  }
+
+  .react-calendar__tile.has-entries {
+    font-weight: 700 !important;
+    color: hsl(var(--primary)) !important;
+    background: hsl(var(--primary) / 0.1) !important;
+  }
+
+  .react-calendar__month-view__weekdays {
+    text-transform: none !important;
+    font-weight: 500 !important;
+    font-size: 0.75rem !important;
+    color: hsl(var(--muted-foreground)) !important;
+  }
+
+  .react-calendar__month-view__weekdays__weekday {
+    padding: 0.5rem !important;
+  }
+
+  .react-calendar__tile abbr {
+    text-decoration: none !important;
+    border: none !important;
+  }
+
+  .react-calendar__month-view {
+    width: 100% !important;
+  }
+
+  .react-calendar__month-view__weekdays,
+  .react-calendar__month-view__days {
+    width: 100% !important;
+  }
+
+  .react-calendar__month-view__days__day {
+    max-width: calc(100% / 7) !important;
+    flex: 1 !important;
+  }
 }

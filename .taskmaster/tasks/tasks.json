@@ -304,7 +304,63 @@
           5
         ],
         "status": "done",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design and Implement Search Input Component",
+            "description": "Create a search bar UI component to be displayed only in the list view, positioned between the tab switch button and the diary entry list.",
+            "dependencies": [],
+            "details": "Ensure the search bar is visible only in the list view and includes a search button and a clear (×) button. The search should be triggered by pressing the search button, not in real-time.",
+            "status": "done",
+            "testStrategy": "Verify the search bar appears in the correct location in the list view, is hidden elsewhere, and that the search and clear buttons function as intended."
+          },
+          {
+            "id": 2,
+            "title": "Integrate Supabase Full-Text Search for Diary Body",
+            "description": "Implement backend and frontend logic to perform full-text search on diary entry bodies using Supabase's full-text search capabilities.",
+            "dependencies": [
+              1
+            ],
+            "details": "Configure the Supabase database to support full-text search on the diary body field. Use appropriate SQL functions (e.g., to_tsvector, to_tsquery) and ensure only the diary body is searched.",
+            "status": "done",
+            "testStrategy": "Insert sample diary entries and confirm that keyword searches return correct and relevant results, matching only the body text."
+          },
+          {
+            "id": 3,
+            "title": "Display and Highlight Search Results in List View",
+            "description": "Replace the diary list with search results and highlight matching keywords in bold within the preview snippet.",
+            "dependencies": [
+              2
+            ],
+            "details": "When a search is performed, update the list view to show only matching entries. In each result, bold the matched keyword(s) in the preview and ensure the preview includes the relevant context.",
+            "status": "done",
+            "testStrategy": "Perform searches with various keywords and verify that results are correctly filtered and keywords are bolded in the preview."
+          },
+          {
+            "id": 4,
+            "title": "Implement Search History Functionality",
+            "description": "Store past search keywords and allow users to reuse them from a history list.",
+            "dependencies": [
+              1
+            ],
+            "details": "Save each search keyword to local storage or a suitable backend table. Provide a UI for users to view and select from previous searches.",
+            "status": "done",
+            "testStrategy": "Perform multiple searches and confirm that keywords are saved, displayed in history, and can be reused to trigger new searches."
+          },
+          {
+            "id": 5,
+            "title": "Optimize Search with Debounce and Clear Functionality",
+            "description": "Apply debounce to the search input to prevent unnecessary queries and implement logic to clear the search and restore the default list view.",
+            "dependencies": [
+              1,
+              2,
+              3
+            ],
+            "details": "Ensure debounce is applied to the search input to optimize performance. The clear (×) button should reset the search input and display the full diary list.",
+            "status": "done",
+            "testStrategy": "Test rapid typing in the search bar to confirm debounce works. Use the clear button and verify the list view resets to show all entries."
+          }
+        ]
       },
       {
         "id": 7,
@@ -653,7 +709,7 @@
     ],
     "metadata": {
       "created": "2025-06-28T06:24:13.044Z",
-      "updated": "2025-06-29T15:46:54.171Z",
+      "updated": "2025-06-30T10:35:57.931Z",
       "description": "Tasks for master context"
     }
   }

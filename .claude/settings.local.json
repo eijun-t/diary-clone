@@ -16,7 +16,7 @@
       "Bash(task-master show:*)",
       "Bash(task-master set-status:*)",
       "Bash(task-master:*)",
-      "Bash(node:*)"
+      "Bash(psql $DATABASE_URL -c \"SELECT id, content, content_search FROM diaries WHERE content ILIKE '%テスト%' LIMIT 5\")"
     ],
     "deny": []
   }
