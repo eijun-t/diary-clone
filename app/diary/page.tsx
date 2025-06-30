@@ -7,7 +7,7 @@ import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Plus, Calendar, List, ChevronLeft, ChevronRight, Search, X } from 'lucide-react';
+import { Plus, Calendar, List, ChevronLeft, ChevronRight, Search, X, MessageCircle } from 'lucide-react';
 import { User } from '@supabase/supabase-js';
 import ReactCalendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -299,12 +299,20 @@ export default function DiaryListPage() {
           <p className="text-muted-foreground text-sm mb-6">
             あなたの気持ちの記録
           </p>
-          <Button asChild className="muute-button bg-primary hover:bg-primary/90 text-white px-8 py-3">
-            <Link href="/diary/new">
-              <Plus className="w-4 h-4 mr-2" />
-              きろくする
-            </Link>
-          </Button>
+          <div className="flex gap-3">
+            <Button asChild className="muute-button bg-primary hover:bg-primary/90 text-white px-6 py-3">
+              <Link href="/diary/new">
+                <Plus className="w-4 h-4 mr-2" />
+                きろくする
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="muute-button border-primary text-primary hover:bg-primary/10 px-6 py-3">
+              <Link href="/feedback">
+                <MessageCircle className="w-4 h-4 mr-2" />
+                メッセージ
+              </Link>
+            </Button>
+          </div>
         </div>
 
         {/* Tab Navigation */}
