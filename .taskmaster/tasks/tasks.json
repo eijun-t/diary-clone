@@ -383,7 +383,7 @@
         "dependencies": [
           7
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -391,7 +391,7 @@
             "description": "Install the openai npm package (version 3.2.1 or later) and ensure it is properly added to the project dependencies.",
             "dependencies": [],
             "details": "Run 'npm install openai' in the project directory and verify the installation. Import the OpenAI SDK in the main application file.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Check that the package appears in package.json and can be imported without errors in a Node.js script."
           },
           {
@@ -402,7 +402,7 @@
               1
             ],
             "details": "Add the API key to a .env file and ensure it is loaded using a package like dotenv. Update .gitignore to exclude the .env file from version control.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Attempt to access the API key from process.env in a Node.js script and confirm it returns the correct value."
           },
           {
@@ -413,7 +413,7 @@
               2
             ],
             "details": "Design the function to accept diary content and character data as input, and output a well-structured prompt suitable for the OpenAI API.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Write unit tests to verify that the function produces expected prompt formats for various input scenarios."
           },
           {
@@ -424,7 +424,7 @@
               3
             ],
             "details": "Use the OpenAI SDK to send the generated prompt to the API and retrieve the feedback response.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Mock API responses in tests and verify that the function correctly handles and returns feedback."
           },
           {
@@ -435,7 +435,7 @@
               4
             ],
             "details": "Detect and handle common API errors, implement retries with exponential backoff, and log errors for monitoring.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Simulate API failures and verify that the retry logic works as intended and errors are logged appropriately."
           }
         ]
@@ -451,7 +451,61 @@
           8
         ],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Configure Vercel Cron Job for 4 AM User Local Time Execution",
+            "description": "Set up Vercel Cron Jobs to trigger a serverless function at 4 AM in each user's local time zone, ensuring correct scheduling for a global user base.",
+            "dependencies": [],
+            "details": "Define cron expressions and paths in vercel.json for the serverless function. Implement logic to handle time zone differences so that each user's feedback is generated at their local 4 AM. Consider using a queue or database to track user time zones and schedule accordingly.",
+            "status": "pending",
+            "testStrategy": "Verify that the cron job triggers at the correct local time for users in multiple time zones using test accounts."
+          },
+          {
+            "id": 2,
+            "title": "Implement Queueing System for Sequential User Processing",
+            "description": "Develop a queueing mechanism to process users one at a time, ensuring scalability and orderly feedback generation for up to 1000 users.",
+            "dependencies": [
+              1
+            ],
+            "details": "Integrate a queue (e.g., using a managed queue service or database table) to enqueue users for feedback generation. Ensure the system can handle retries and avoid duplicate processing.",
+            "status": "pending",
+            "testStrategy": "Simulate high user volume and verify that users are processed sequentially without overlap or missed entries."
+          },
+          {
+            "id": 3,
+            "title": "Fetch Diary Entries for Target Time Window",
+            "description": "Retrieve diary entries for each user from Supabase, covering the period from the previous day's 4 AM to the current day's 4 AM.",
+            "dependencies": [
+              2
+            ],
+            "details": "Query Supabase for diary entries within the specified time window for each user in the queue. Ensure time window calculations respect user time zones.",
+            "status": "pending",
+            "testStrategy": "Test with users in different time zones and verify that only the correct entries are fetched for the target window."
+          },
+          {
+            "id": 4,
+            "title": "Generate AI Feedback and Handle API Calls per Character",
+            "description": "For each diary entry, call the OpenAI API up to 8 times per user (once per character) to generate individualized feedback, with robust error handling and retry logic.",
+            "dependencies": [
+              3
+            ],
+            "details": "Implement logic to loop through each character, invoke the OpenAI API, and handle failures with retries and error notifications. Ensure API rate limits and quotas are respected.",
+            "status": "pending",
+            "testStrategy": "Mock API failures and verify retry and notification mechanisms. Confirm that feedback is generated for all characters per user."
+          },
+          {
+            "id": 5,
+            "title": "Persist Favorited Feedback and Ensure Data Integrity",
+            "description": "Store only feedback marked as 'favorited' by users in Supabase, ensuring data is saved reliably and can be retrieved for future use.",
+            "dependencies": [
+              4
+            ],
+            "details": "Implement logic to save feedback to Supabase only if it is favorited. Ensure transactional integrity and handle potential save errors gracefully.",
+            "status": "pending",
+            "testStrategy": "Test favoriting and saving flows, including error scenarios, and verify that only favorited feedback is persisted."
+          }
+        ]
       },
       {
         "id": 10,
@@ -599,7 +653,7 @@
     ],
     "metadata": {
       "created": "2025-06-28T06:24:13.044Z",
-      "updated": "2025-06-29T14:56:55.769Z",
+      "updated": "2025-06-29T15:46:54.171Z",
       "description": "Tasks for master context"
     }
   }

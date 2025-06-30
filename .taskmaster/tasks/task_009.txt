@@ -9,3 +9,35 @@ Use node-cron (version 3.0.2 or later) to schedule daily tasks. Implement a serv
 
 # Test Strategy:
 Test the scheduler with different time zones. Verify that feedback is generated and stored correctly.
+
+# Subtasks:
+## 1. Configure Vercel Cron Job for 4 AM User Local Time Execution [pending]
+### Dependencies: None
+### Description: Set up Vercel Cron Jobs to trigger a serverless function at 4 AM in each user's local time zone, ensuring correct scheduling for a global user base.
+### Details:
+Define cron expressions and paths in vercel.json for the serverless function. Implement logic to handle time zone differences so that each user's feedback is generated at their local 4 AM. Consider using a queue or database to track user time zones and schedule accordingly.
+
+## 2. Implement Queueing System for Sequential User Processing [pending]
+### Dependencies: 9.1
+### Description: Develop a queueing mechanism to process users one at a time, ensuring scalability and orderly feedback generation for up to 1000 users.
+### Details:
+Integrate a queue (e.g., using a managed queue service or database table) to enqueue users for feedback generation. Ensure the system can handle retries and avoid duplicate processing.
+
+## 3. Fetch Diary Entries for Target Time Window [pending]
+### Dependencies: 9.2
+### Description: Retrieve diary entries for each user from Supabase, covering the period from the previous day's 4 AM to the current day's 4 AM.
+### Details:
+Query Supabase for diary entries within the specified time window for each user in the queue. Ensure time window calculations respect user time zones.
+
+## 4. Generate AI Feedback and Handle API Calls per Character [pending]
+### Dependencies: 9.3
+### Description: For each diary entry, call the OpenAI API up to 8 times per user (once per character) to generate individualized feedback, with robust error handling and retry logic.
+### Details:
+Implement logic to loop through each character, invoke the OpenAI API, and handle failures with retries and error notifications. Ensure API rate limits and quotas are respected.
+
+## 5. Persist Favorited Feedback and Ensure Data Integrity [pending]
+### Dependencies: 9.4
+### Description: Store only feedback marked as 'favorited' by users in Supabase, ensuring data is saved reliably and can be retrieved for future use.
+### Details:
+Implement logic to save feedback to Supabase only if it is favorited. Ensure transactional integrity and handle potential save errors gracefully.
+
