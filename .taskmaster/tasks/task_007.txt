@@ -1,6 +1,6 @@
 # Task ID: 7
 # Title: Design and Implement Character System
-# Status: pending
+# Status: done
 # Dependencies: 2
 # Priority: high
 # Description: Create the system for managing the 8 unique characters and their personalities.
@@ -9,3 +9,35 @@ Design a data structure to represent each character's attributes (name, personal
 
 # Test Strategy:
 Unit test character utility functions. Verify that all 8 characters are correctly represented in the system.
+
+# Subtasks:
+## 1. Define Character Data Structure [done]
+### Dependencies: None
+### Description: Design a flexible data structure to represent each character's attributes, including name, personality, speech style, and visual properties such as background color.
+### Details:
+Ensure the structure supports all 8 initial characters and allows for future expansion. Include fields for name, personality, speech style, background color, and avatar reference.
+
+## 2. Design Supabase Table Schema for Characters [done]
+### Dependencies: 7.1
+### Description: Create a Supabase table schema to store character information, using appropriate data types for each attribute.
+### Details:
+Map the character data structure to Supabase table columns. Use text or varchar for string fields, and consider enum or text for personality/speech style. Ensure the schema supports extensibility for future characters.
+
+## 3. Implement Character CRUD Operations [done]
+### Dependencies: 7.2
+### Description: Develop utility functions to create, read, update, and delete character records in Supabase.
+### Details:
+Implement functions for adding new characters, retrieving character lists, updating character attributes, and removing characters. Ensure functions handle all defined fields and maintain data integrity.
+
+## 4. Develop Character Selection and Rotation Logic [done]
+### Dependencies: 7.3
+### Description: Implement utility functions to handle character selection, rotation, and ensuring all 8 characters provide feedback as required.
+### Details:
+Create logic to select characters for feedback, rotate through all 8, and support favorite registration. Ensure only favorite characters are persisted outside the DB as specified.
+
+## 5. Integrate Character System with UI Components [done]
+### Dependencies: 7.4
+### Description: Connect the character system to the feedback and detail card UI, supporting display, selection, and favorite registration.
+### Details:
+Ensure character data populates feedback cards, detail views, and supports the 'start conversation' button. Confirm extensibility for adding new characters.
+

@@ -235,7 +235,7 @@
         "dependencies": [
           4
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -243,7 +243,7 @@
             "description": "Extend the existing /diary/page.tsx to support tab switching between the list and calendar views within the same page.",
             "dependencies": [],
             "details": "Implement a tabbed UI that allows users to switch between the diary entry list and the calendar view, ensuring seamless transitions and state management.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Verify that both tabs render correctly, switching preserves state, and the correct view is displayed upon tab selection."
           },
           {
@@ -254,7 +254,7 @@
               1
             ],
             "details": "Fetch diary entries from Supabase, sort them by newest first, and display only the first 20 characters per entry. Add pagination controls to navigate through pages of 10 entries each.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Check that entries are correctly ordered, truncated, and paginated. Test navigation between pages and edge cases (e.g., last page with fewer than 10 entries)."
           },
           {
@@ -265,7 +265,7 @@
               1
             ],
             "details": "Configure react-calendar for monthly display, localize to Japanese, and visually indicate dates with diary entries using small dots. Ensure initial view is the current month.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Confirm calendar renders in Japanese, dots appear only on dates with entries, and initial month is correct."
           },
           {
@@ -276,7 +276,7 @@
               3
             ],
             "details": "Implement click handlers for calendar dates. When a date with entries is clicked, fetch and display the full details of those entries below the calendar.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Test clicking dates with and without entries, verify correct details are shown, and ensure UI updates appropriately."
           },
           {
@@ -288,7 +288,7 @@
               3
             ],
             "details": "Centralize data fetching to avoid duplication, handle loading and error states, and ensure updates in one view are reflected in the other.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Simulate data changes and verify both views update accordingly. Test error handling and loading indicators."
           }
         ]
@@ -303,7 +303,7 @@
         "dependencies": [
           5
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": []
       },
       {
@@ -316,8 +316,62 @@
         "dependencies": [
           2
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Define Character Data Structure",
+            "description": "Design a flexible data structure to represent each character's attributes, including name, personality, speech style, and visual properties such as background color.",
+            "dependencies": [],
+            "details": "Ensure the structure supports all 8 initial characters and allows for future expansion. Include fields for name, personality, speech style, background color, and avatar reference.",
+            "status": "done",
+            "testStrategy": "Create mock character objects and verify all required attributes are present and accessible."
+          },
+          {
+            "id": 2,
+            "title": "Design Supabase Table Schema for Characters",
+            "description": "Create a Supabase table schema to store character information, using appropriate data types for each attribute.",
+            "dependencies": [
+              1
+            ],
+            "details": "Map the character data structure to Supabase table columns. Use text or varchar for string fields, and consider enum or text for personality/speech style. Ensure the schema supports extensibility for future characters.",
+            "status": "done",
+            "testStrategy": "Run migrations to create the table in a test Supabase project and insert sample data for all 8 characters."
+          },
+          {
+            "id": 3,
+            "title": "Implement Character CRUD Operations",
+            "description": "Develop utility functions to create, read, update, and delete character records in Supabase.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement functions for adding new characters, retrieving character lists, updating character attributes, and removing characters. Ensure functions handle all defined fields and maintain data integrity.",
+            "status": "done",
+            "testStrategy": "Write unit tests for each CRUD operation, verifying correct database interaction and error handling."
+          },
+          {
+            "id": 4,
+            "title": "Develop Character Selection and Rotation Logic",
+            "description": "Implement utility functions to handle character selection, rotation, and ensuring all 8 characters provide feedback as required.",
+            "dependencies": [
+              3
+            ],
+            "details": "Create logic to select characters for feedback, rotate through all 8, and support favorite registration. Ensure only favorite characters are persisted outside the DB as specified.",
+            "status": "done",
+            "testStrategy": "Simulate feedback cycles and verify all characters are selected in rotation, with correct handling of favorites."
+          },
+          {
+            "id": 5,
+            "title": "Integrate Character System with UI Components",
+            "description": "Connect the character system to the feedback and detail card UI, supporting display, selection, and favorite registration.",
+            "dependencies": [
+              4
+            ],
+            "details": "Ensure character data populates feedback cards, detail views, and supports the 'start conversation' button. Confirm extensibility for adding new characters.",
+            "status": "done",
+            "testStrategy": "Perform end-to-end UI tests to verify correct character display, selection, favorite registration, and extensibility."
+          }
+        ]
       },
       {
         "id": 8,
@@ -330,7 +384,61 @@
           7
         ],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Install and Configure OpenAI SDK",
+            "description": "Install the openai npm package (version 3.2.1 or later) and ensure it is properly added to the project dependencies.",
+            "dependencies": [],
+            "details": "Run 'npm install openai' in the project directory and verify the installation. Import the OpenAI SDK in the main application file.",
+            "status": "pending",
+            "testStrategy": "Check that the package appears in package.json and can be imported without errors in a Node.js script."
+          },
+          {
+            "id": 2,
+            "title": "Set Up Environment Variables for API Key",
+            "description": "Create and configure an environment file to securely store the OpenAI API key.",
+            "dependencies": [
+              1
+            ],
+            "details": "Add the API key to a .env file and ensure it is loaded using a package like dotenv. Update .gitignore to exclude the .env file from version control.",
+            "status": "pending",
+            "testStrategy": "Attempt to access the API key from process.env in a Node.js script and confirm it returns the correct value."
+          },
+          {
+            "id": 3,
+            "title": "Develop Prompt Generation Utility",
+            "description": "Create a utility function that generates prompts based on diary content and character personality traits.",
+            "dependencies": [
+              2
+            ],
+            "details": "Design the function to accept diary content and character data as input, and output a well-structured prompt suitable for the OpenAI API.",
+            "status": "pending",
+            "testStrategy": "Write unit tests to verify that the function produces expected prompt formats for various input scenarios."
+          },
+          {
+            "id": 4,
+            "title": "Implement Feedback Generation Logic",
+            "description": "Integrate the OpenAI API call to generate feedback using the constructed prompts.",
+            "dependencies": [
+              3
+            ],
+            "details": "Use the OpenAI SDK to send the generated prompt to the API and retrieve the feedback response.",
+            "status": "pending",
+            "testStrategy": "Mock API responses in tests and verify that the function correctly handles and returns feedback."
+          },
+          {
+            "id": 5,
+            "title": "Add Error Handling and Retry Logic",
+            "description": "Implement robust error handling and retry mechanisms for API calls to ensure reliability.",
+            "dependencies": [
+              4
+            ],
+            "details": "Detect and handle common API errors, implement retries with exponential backoff, and log errors for monitoring.",
+            "status": "pending",
+            "testStrategy": "Simulate API failures and verify that the retry logic works as intended and errors are logged appropriately."
+          }
+        ]
       },
       {
         "id": 9,
@@ -491,7 +599,7 @@
     ],
     "metadata": {
       "created": "2025-06-28T06:24:13.044Z",
-      "updated": "2025-06-29T07:09:28.084Z",
+      "updated": "2025-06-29T14:56:55.769Z",
       "description": "Tasks for master context"
     }
   }

@@ -6,7 +6,16 @@
       "Bash(npm run dev:*)",
       "Bash(pkill:*)",
       "Bash(mkdir:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(curl:*)",
+      "Bash(true)",
+      "Bash(rg:*)",
+      "Bash(find:*)",
+      "Bash(task-master list:*)",
+      "Bash(task-master show:*)",
+      "Bash(task-master set-status:*)",
+      "Bash(task-master:*)"
     ],
     "deny": []
   }

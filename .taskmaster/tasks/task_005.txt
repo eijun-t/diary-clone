@@ -1,6 +1,6 @@
 # Task ID: 5
 # Title: Implement Diary Entry Listing and Calendar View
-# Status: pending
+# Status: done
 # Dependencies: 4
 # Priority: medium
 # Description: Create interfaces for listing diary entries and viewing them in a calendar format.
@@ -11,31 +11,31 @@ Develop a list view component for diary entries. Implement a calendar view using
 Test the rendering of both list and calendar views. Verify correct data fetching and display. Test pagination and date range selection functionality.
 
 # Subtasks:
-## 1. Design Tabbed Interface for List and Calendar Views [pending]
+## 1. Design Tabbed Interface for List and Calendar Views [done]
 ### Dependencies: None
 ### Description: Extend the existing /diary/page.tsx to support tab switching between the list and calendar views within the same page.
 ### Details:
 Implement a tabbed UI that allows users to switch between the diary entry list and the calendar view, ensuring seamless transitions and state management.
 
-## 2. Implement Diary Entry List View with Pagination [pending]
+## 2. Implement Diary Entry List View with Pagination [done]
 ### Dependencies: 5.1
 ### Description: Develop a list view component that displays diary entries in descending order, showing the first ~20 characters of each entry and paginating 10 entries per page.
 ### Details:
 Fetch diary entries from Supabase, sort them by newest first, and display only the first 20 characters per entry. Add pagination controls to navigate through pages of 10 entries each.
 
-## 3. Integrate react-calendar for Monthly Calendar View [pending]
+## 3. Integrate react-calendar for Monthly Calendar View [done]
 ### Dependencies: 5.1
 ### Description: Implement a monthly calendar view using react-calendar, displaying a dot on dates with diary entries and supporting Japanese localization.
 ### Details:
 Configure react-calendar for monthly display, localize to Japanese, and visually indicate dates with diary entries using small dots. Ensure initial view is the current month.
 
-## 4. Enable Date Selection and Entry Detail Display in Calendar View [pending]
+## 4. Enable Date Selection and Entry Detail Display in Calendar View [done]
 ### Dependencies: 5.3
 ### Description: Allow users to click a date in the calendar to view detailed diary entries for that day in a lower section of the calendar view.
 ### Details:
 Implement click handlers for calendar dates. When a date with entries is clicked, fetch and display the full details of those entries below the calendar.
 
-## 5. Fetch and Synchronize Diary Entries from Supabase for Both Views [pending]
+## 5. Fetch and Synchronize Diary Entries from Supabase for Both Views [done]
 ### Dependencies: 5.2, 5.3
 ### Description: Implement data fetching logic to retrieve diary entries from Supabase and ensure both the list and calendar views are populated and synchronized.
 ### Details:

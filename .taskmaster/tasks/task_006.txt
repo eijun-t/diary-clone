@@ -1,6 +1,6 @@
 # Task ID: 6
 # Title: Add Diary Entry Search Functionality
-# Status: pending
+# Status: done
 # Dependencies: 5
 # Priority: medium
 # Description: Implement a search feature to find diary entries by keywords.
