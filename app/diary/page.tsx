@@ -15,7 +15,7 @@ import 'react-calendar/dist/Calendar.css';
 interface SimpleEntry {
   id: number;
   content: string | null;
-  mood: string;
+  mood: string | null;
   created_at: string;
 }
 
@@ -464,16 +464,15 @@ export default function DiaryListPage() {
                     : displayContent || '記録';
 
                   return (
-                    <div key={entry.id} className="muute-card p-4 hover:shadow-md transition-shadow">
-                      <div className="flex items-start gap-3 mb-3">
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center text-lg mood-${entry.mood}`}>
-                          {moodEmojis[entry.mood] || '😐'}
-                        </div>
+                    <div key={entry.id} className="muute-card p-3 hover:shadow-md transition-shadow">
+                      <div className="flex items-start gap-3 mb-2">
+                        {entry.mood && (
+                          <div className={`w-8 h-8 rounded-full flex items-center justify-center text-lg mood-${entry.mood}`}>
+                            {moodEmojis[entry.mood]}
+                          </div>
+                        )}
                         <div className="flex-1">
                           <div className="flex items-center justify-between mb-2">
-                            <span className="text-xs px-2 py-1 bg-white/60 rounded-full text-muted-foreground">
-                              {moodLabels[entry.mood] || entry.mood}
-                            </span>
                             <span className="text-xs text-muted-foreground">
                               {new Date(entry.created_at).toLocaleDateString('ja-JP', {
                                 month: 'short',
@@ -592,16 +591,15 @@ export default function DiaryListPage() {
                       : entry.content?.substring(0, 60) + '...';
 
                     return (
-                      <div key={entry.id} className="muute-card p-4">
+                      <div key={entry.id} className="muute-card p-3">
                         <div className="flex items-start gap-3">
-                          <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm mood-${entry.mood}`}>
-                            {moodEmojis[entry.mood] || '😐'}
-                          </div>
+                          {entry.mood && (
+                            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-sm mood-${entry.mood}`}>
+                              {moodEmojis[entry.mood]}
+                            </div>
+                          )}
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-2">
-                              <span className="text-xs px-2 py-1 bg-white/60 rounded-full text-muted-foreground">
-                                {moodLabels[entry.mood] || entry.mood}
-                              </span>
                               <span className="text-xs text-muted-foreground">
                                 {new Date(entry.created_at).toLocaleTimeString('ja-JP', {
                                   hour: '2-digit',

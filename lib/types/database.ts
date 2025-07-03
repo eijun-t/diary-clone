@@ -4,19 +4,19 @@ export interface DiaryEntry {
   id: number;
   user_id: string;
   content: string | null;
-  mood: MoodType;
+  mood: MoodType | null;
   created_at: string;
 }
 
 export interface DiaryEntryInsert {
   user_id: string;
   content?: string | null;
-  mood: MoodType;
+  mood?: MoodType | null;
 }
 
 export interface DiaryEntryUpdate {
   content?: string | null;
-  mood?: MoodType;
+  mood?: MoodType | null;
 }
 
 export interface Character {

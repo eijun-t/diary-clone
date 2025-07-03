@@ -65,7 +65,7 @@ export default function NewDiaryPage() {
       await createDiaryEntry({
         user_id: user.id,
         content: data.content,
-        mood: data.mood || 'neutral',
+        mood: data.mood || null,
       });
 
       // Show success message and redirect
