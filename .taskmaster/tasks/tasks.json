@@ -506,7 +506,7 @@
         "dependencies": [
           8
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -514,7 +514,7 @@
             "description": "Set up Vercel Cron Jobs to trigger a serverless function at 4 AM in each user's local time zone, ensuring correct scheduling for a global user base.",
             "dependencies": [],
             "details": "Define cron expressions and paths in vercel.json for the serverless function. Implement logic to handle time zone differences so that each user's feedback is generated at their local 4 AM. Consider using a queue or database to track user time zones and schedule accordingly.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Verify that the cron job triggers at the correct local time for users in multiple time zones using test accounts."
           },
           {
@@ -525,7 +525,7 @@
               1
             ],
             "details": "Integrate a queue (e.g., using a managed queue service or database table) to enqueue users for feedback generation. Ensure the system can handle retries and avoid duplicate processing.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Simulate high user volume and verify that users are processed sequentially without overlap or missed entries."
           },
           {
@@ -536,7 +536,7 @@
               2
             ],
             "details": "Query Supabase for diary entries within the specified time window for each user in the queue. Ensure time window calculations respect user time zones.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Test with users in different time zones and verify that only the correct entries are fetched for the target window."
           },
           {
@@ -547,7 +547,7 @@
               3
             ],
             "details": "Implement logic to loop through each character, invoke the OpenAI API, and handle failures with retries and error notifications. Ensure API rate limits and quotas are respected.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Mock API failures and verify retry and notification mechanisms. Confirm that feedback is generated for all characters per user."
           },
           {
@@ -558,7 +558,7 @@
               4
             ],
             "details": "Implement logic to save feedback to Supabase only if it is favorited. Ensure transactional integrity and handle potential save errors gracefully.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Test favoriting and saving flows, including error scenarios, and verify that only favorited feedback is persisted."
           }
         ]
@@ -573,8 +573,61 @@
         "dependencies": [
           9
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create FeedbackCard Component",
+            "description": "Develop a reusable card component to display individual feedback entries in the list view.",
+            "dependencies": [],
+            "details": "Create components/feedback/FeedbackCard.tsx that accepts feedback data as props. Include title, brief content preview, timestamp, and favorite toggle button. Style using Tailwind CSS. The component should be responsive and handle different content lengths appropriately. Do not implement animations with framer-motion as specified in the additional context.",
+            "status": "done",
+            "testStrategy": "Create unit tests to verify the component renders correctly with different prop values and that the favorite toggle functionality works as expected."
+          },
+          {
+            "id": 2,
+            "title": "Implement FeedbackList Component",
+            "description": "Create a component that displays multiple FeedbackCard components in a grid or list layout.",
+            "dependencies": [
+              1
+            ],
+            "details": "Create components/feedback/FeedbackList.tsx that accepts an array of feedback items and renders FeedbackCard components for each item. Implement proper grid/list layout with responsive design. Handle empty states and loading states appropriately. Ensure the list is accessible and keyboard navigable.",
+            "status": "done",
+            "testStrategy": "Test the component with various data sets including empty arrays and verify that cards are rendered correctly."
+          },
+          {
+            "id": 3,
+            "title": "Develop FeedbackHeader Component with Tabs",
+            "description": "Create a header component with tabs for navigating between all feedback and favorites.",
+            "dependencies": [],
+            "details": "Create components/feedback/FeedbackHeader.tsx with tabs for 'All Feedback' and 'Favorites'. Implement active state styling for the current tab. The component should handle tab switching and provide appropriate callbacks. Use Next.js Link components for navigation between /feedback and /feedback/favorites routes.",
+            "status": "done",
+            "testStrategy": "Test tab switching functionality and verify that the correct active states are applied based on the current route."
+          },
+          {
+            "id": 4,
+            "title": "Create FeedbackDetail Component",
+            "description": "Develop a component to display detailed information about a single feedback entry.",
+            "dependencies": [],
+            "details": "Create components/feedback/FeedbackDetail.tsx that displays comprehensive information about a feedback entry including full content, metadata, and actions (such as favorite toggle). Design for readability and include appropriate spacing and typography. Include a back button to return to the feedback list.",
+            "status": "done",
+            "testStrategy": "Test the component with various feedback data structures and verify that all information is displayed correctly."
+          },
+          {
+            "id": 5,
+            "title": "Implement Feedback Page Routes",
+            "description": "Create and connect all required pages for the feedback interface using Next.js routing.",
+            "dependencies": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "details": "Create three pages: 1) /feedback for the main feedback list, 2) /feedback/[id] for individual feedback details, and 3) /feedback/favorites for favorite items. Each page should use the appropriate components created in previous subtasks. Implement data fetching for each route and handle loading/error states. Refactor the existing feedback page to use the new components as specified in the additional context.",
+            "status": "done",
+            "testStrategy": "Test navigation between pages, verify that URL parameters are correctly handled, and ensure that data is properly fetched and displayed on each page."
+          }
+        ]
       },
       {
         "id": 11,
@@ -587,7 +640,61 @@
           8
         ],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design and Create Character Context Database Schema",
+            "description": "Design and implement the database schema for character-specific context management in Supabase, including tables for storing raw interactions and hierarchical summaries.",
+            "dependencies": [],
+            "details": "Create the following tables in Supabase: 1) character_context_raw - stores recent raw interactions with timestamp, user_id, character_id, and content fields; 2) character_context_summaries - stores hierarchical summaries with user_id, character_id, summary_type (weekly, monthly, quarterly), period_start, period_end, and summary_content fields. Include appropriate indexes and foreign key relationships. Ensure the schema supports filtering interactions by character and excluding cross-character information.",
+            "status": "pending",
+            "testStrategy": "Verify table creation with test data insertion and retrieval. Ensure proper constraints and relationships are enforced."
+          },
+          {
+            "id": 2,
+            "title": "Implement Context Collection System",
+            "description": "Develop functions to collect and store relevant context data per user-character pair, including chat history, diary entries, and feedback.",
+            "dependencies": [
+              1
+            ],
+            "details": "Create utility functions to: 1) Capture and store new interactions in character_context_raw; 2) Retrieve character-specific information from existing tables (chats, diaries, feedback); 3) Filter data to ensure character isolation (no cross-character information sharing); 4) Implement retention policy to maintain only the most recent week of raw data. Use Supabase client for all database operations.",
+            "status": "pending",
+            "testStrategy": "Test with mock interactions across multiple characters to verify proper isolation. Confirm retention policy correctly maintains only recent data."
+          },
+          {
+            "id": 3,
+            "title": "Develop Weekly Summary Generation System",
+            "description": "Create a system to generate weekly summaries of user-character interactions using OpenAI's summarization capabilities.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement functions to: 1) Retrieve a week's worth of raw interactions for a specific user-character pair; 2) Use OpenAI API to generate concise, meaningful summaries; 3) Store these summaries in the character_context_summaries table with type 'weekly'; 4) Include metadata about the time period covered. Optimize prompt design for effective summarization that preserves key information while reducing token count.",
+            "status": "pending",
+            "testStrategy": "Evaluate summary quality with test data containing various interaction patterns. Verify summaries maintain character-specific knowledge and tone."
+          },
+          {
+            "id": 4,
+            "title": "Implement Hierarchical Summary System",
+            "description": "Develop a system to create higher-level summaries (monthly, quarterly) from collections of weekly summaries, forming a hierarchical context structure.",
+            "dependencies": [
+              3
+            ],
+            "details": "Create functions to: 1) Identify when 10 weekly summaries are available for aggregation; 2) Retrieve and combine these summaries; 3) Generate a higher-level summary using OpenAI; 4) Store in character_context_summaries with appropriate summary_type; 5) Implement recursive summarization for even longer-term context (quarterly from monthly, etc.). Design the system to maintain a balance between detail preservation and context compression.",
+            "status": "pending",
+            "testStrategy": "Test with artificially aged data to verify proper hierarchical summary generation. Compare information retention across summary levels."
+          },
+          {
+            "id": 5,
+            "title": "Integrate Context Management with Chat System",
+            "description": "Integrate the context management system with the existing chat functionality, including context retrieval for chat sessions and scheduled summary generation.",
+            "dependencies": [
+              4
+            ],
+            "details": "Implement: 1) A context builder function that assembles relevant context for a chat session by combining recent raw interactions with appropriate summaries; 2) A weekly scheduled task to trigger summary generation for all active user-character pairs; 3) Integration points with the existing chat system to provide context to the AI model; 4) Optimization to ensure context stays within token limits while prioritizing relevant information. Update the chat interface to utilize the new context management system.",
+            "status": "pending",
+            "testStrategy": "Conduct end-to-end testing with simulated long-term interactions. Verify that characters maintain appropriate memory of past interactions while respecting character isolation."
+          }
+        ]
       },
       {
         "id": 12,
@@ -709,7 +816,7 @@
     ],
     "metadata": {
       "created": "2025-06-28T06:24:13.044Z",
-      "updated": "2025-06-30T10:35:57.931Z",
+      "updated": "2025-07-02T06:00:33.784Z",
       "description": "Tasks for master context"
     }
   }

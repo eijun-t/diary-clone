@@ -1,0 +1,43 @@
+name: Daily Feedback Generation
+
+on:
+  schedule:
+    # 毎日UTC 19:00 = JST 04:00に実行
+    - cron: '0 19 * * *'
+  workflow_dispatch:
+    # 手動実行も可能
+
+jobs:
+  generate-daily-feedback:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Generate Daily Feedback
+        run: |
+          echo "🚀 Triggering daily feedback generation..."
+          
+          # プロダクション環境のAPIエンドポイントを呼び出し
+          response=$(curl -s -w "%{http_code}" \
+            -X POST \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            "${{ secrets.PRODUCTION_URL }}/api/cron/daily-feedback")
+          
+          http_code="${response: -3}"
+          body="${response%???}"
+          
+          echo "📡 HTTP Status: $http_code"
+          echo "📄 Response: $body"
+          
+          if [ "$http_code" != "200" ]; then
+            echo "❌ Daily feedback generation failed"
+            exit 1
+          else
+            echo "✅ Daily feedback generation completed successfully"
+          fi
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "💥 Daily feedback generation job failed"
+          # ここで通知システム（Slack, Discord等）への送信も可能

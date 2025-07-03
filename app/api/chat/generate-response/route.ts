@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { createClient } from '@/lib/supabase/server';
 import { Character, ChatMessage } from '@/lib/types/character';
+import { buildContextForChat } from '@/lib/services/context-management';
+import { storeRawContext } from '@/lib/database/character-context';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -11,6 +13,7 @@ interface RequestBody {
   userMessage: string;
   character: Character;
   chatHistory: ChatMessage[];
+  sessionId?: string;
 }
 
 export async function POST(request: NextRequest) {
@@ -39,7 +42,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body: RequestBody = await request.json();
-    const { userMessage, character, chatHistory } = body;
+    const { userMessage, character, chatHistory, sessionId } = body;
 
     if (!userMessage || !character) {
       return NextResponse.json(
@@ -48,16 +51,32 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Build conversation context
+    // Build enhanced context using the context management system
+    const enhancedContext = await buildContextForChat(
+      user.id,
+      character.id,
+      1500 // Reserve tokens for system prompt and conversation
+    );
+
+    // Build conversation context with enhanced long-term memory
+    let systemPrompt = character.systemPrompt;
+    
+    if (enhancedContext) {
+      systemPrompt += '\n\n## Context and Background:\n' + enhancedContext;
+    }
+    
+    systemPrompt += '\n\nあなたは今、ユーザーとリアルタイムでチャットしています。上記のコンテキストを参考にしながら、自然な会話を心がけ、相手の気持ちに寄り添った返答をしてください。返答は100文字程度で簡潔にお願いします。';
+
     const messages: any[] = [
       {
         role: 'system',
-        content: character.systemPrompt + '\n\nあなたは今、ユーザーとリアルタイムでチャットしています。自然な会話を心がけ、相手の気持ちに寄り添った返答をしてください。返答は100文字程度で簡潔にお願いします。'
+        content: systemPrompt
       }
     ];
 
-    // Add recent chat history for context
-    chatHistory.forEach((msg) => {
+    // Add recent chat history for context (limit to last 10 messages to manage token usage)
+    const recentHistory = chatHistory.slice(-10);
+    recentHistory.forEach((msg) => {
       messages.push({
         role: msg.senderType === 'user' ? 'user' : 'assistant',
         content: msg.content
@@ -85,6 +104,24 @@ export async function POST(request: NextRequest) {
 
     if (!response) {
       throw new Error('Empty response generated');
+    }
+
+    // Store the chat interaction in context system for future reference
+    try {
+      const chatContent = `User: ${userMessage}\nCharacter: ${response}`;
+      await storeRawContext(
+        user.id,
+        character.id,
+        'chat',
+        chatContent,
+        {
+          session_id: sessionId,
+          timestamp: new Date().toISOString()
+        }
+      );
+    } catch (contextError) {
+      console.error('Error storing chat context:', contextError);
+      // Don't fail the request if context storage fails
     }
 
     return NextResponse.json(
