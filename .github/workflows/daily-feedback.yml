@@ -1,10 +1,10 @@
 name: Daily Feedback Generation
 
-on:
-  schedule:
+#on:
+#  schedule:
     # 毎日UTC 19:00 = JST 04:00に実行
-    - cron: '0 19 * * *'
-  workflow_dispatch:
+#    - cron: '0 19 * * *'
+#  workflow_dispatch:
     # 手動実行も可能
 
 jobs:
